@@ -1,4 +1,4 @@
-package org.qcri.rheem.api
+package io.rheem.rheem.api
 
 import java.io.File
 import java.net.URI
@@ -7,16 +7,16 @@ import java.sql.{Connection, Statement}
 import java.util.function.Consumer
 
 import org.junit.{Assert, Test}
-import org.qcri.rheem.basic.RheemBasics
-import org.qcri.rheem.core.api.{Configuration, RheemContext}
-import org.qcri.rheem.core.function.FunctionDescriptor.ExtendedSerializablePredicate
-import org.qcri.rheem.core.function.{ExecutionContext, TransformationDescriptor}
-import org.qcri.rheem.core.util.fs.LocalFileSystem
-import org.qcri.rheem.java.Java
-import org.qcri.rheem.java.operators.JavaMapOperator
-import org.qcri.rheem.spark.Spark
-import org.qcri.rheem.sqlite3.Sqlite3
-import org.qcri.rheem.sqlite3.operators.Sqlite3TableSource
+import io.rheem.rheem.basic.RheemBasics
+import io.rheem.rheem.core.api.{Configuration, RheemContext}
+import io.rheem.rheem.core.function.FunctionDescriptor.ExtendedSerializablePredicate
+import io.rheem.rheem.core.function.{ExecutionContext, TransformationDescriptor}
+import io.rheem.rheem.core.util.fs.LocalFileSystem
+import io.rheem.rheem.java.Java
+import io.rheem.rheem.java.operators.JavaMapOperator
+import io.rheem.rheem.spark.Spark
+import io.rheem.rheem.sqlite3.Sqlite3
+import io.rheem.rheem.sqlite3.operators.Sqlite3TableSource
 
 /**
   * Tests the Rheem API.
@@ -399,7 +399,7 @@ class ApiTest {
       .withPlugin(Java.graphPlugin)
       .withPlugin(RheemBasics.graphPlugin)
       .withPlugin(Java.basicPlugin)
-    import org.qcri.rheem.api.graph._
+    import io.rheem.rheem.api.graph._
 
     val edges = Seq((0, 1), (0, 2), (0, 3), (1, 0), (2, 1), (3, 2), (3, 1)).map(t => Edge(t._1, t._2))
 

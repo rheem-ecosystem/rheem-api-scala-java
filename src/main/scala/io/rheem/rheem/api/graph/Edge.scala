@@ -1,4 +1,4 @@
-package org.qcri.rheem.api.graph
+package io.rheem.rheem.api.graph
 
 /**
   * Helper to handle [[Edge]]s.

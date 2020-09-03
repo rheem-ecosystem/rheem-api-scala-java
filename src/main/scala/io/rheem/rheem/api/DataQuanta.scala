@@ -1,4 +1,4 @@
-package org.qcri.rheem.api
+package io.rheem.rheem.api
 
 import _root_.java.lang.{Iterable => JavaIterable}
 import _root_.java.util.function.{Consumer, IntUnaryOperator, BiFunction => JavaBiFunction, Function => JavaFunction}
@@ -6,16 +6,17 @@ import _root_.java.util.{Collection => JavaCollection}
 
 import de.hpi.isg.profiledb.store.model.Experiment
 import org.apache.commons.lang3.Validate
-import org.qcri.rheem.basic.function.ProjectionDescriptor
-import org.qcri.rheem.basic.operators._
-import org.qcri.rheem.core.function.FunctionDescriptor.{SerializableBinaryOperator, SerializableFunction, SerializablePredicate}
-import org.qcri.rheem.core.function._
-import org.qcri.rheem.core.optimizer.ProbabilisticDoubleInterval
-import org.qcri.rheem.core.optimizer.cardinality.CardinalityEstimator
-import org.qcri.rheem.core.optimizer.costs.LoadProfileEstimator
-import org.qcri.rheem.core.plan.rheemplan._
-import org.qcri.rheem.core.platform.Platform
-import org.qcri.rheem.core.util.{Tuple => RheemTuple}
+import io.rheem.rheem.basic.function.ProjectionDescriptor
+import io.rheem.rheem.basic.operators._
+import io.rheem.rheem.core.function.FunctionDescriptor.{SerializableBinaryOperator, SerializableFunction, SerializablePredicate}
+import io.rheem.rheem.core.function._
+import io.rheem.rheem.core.optimizer.ProbabilisticDoubleInterval
+import io.rheem.rheem.core.optimizer.cardinality.CardinalityEstimator
+import io.rheem.rheem.core.optimizer.costs.LoadProfileEstimator
+import io.rheem.rheem.core.plan.rheemplan._
+import io.rheem.rheem.core.platform.Platform
+import io.rheem.rheem.core.util.{Tuple => RheemTuple}
+import io.rheem.rheem.basic.data.{Tuple2 => RheemTuple2}
 
 import scala.collection.JavaConversions
 import scala.collection.JavaConversions._
@@ -418,7 +419,7 @@ class DataQuanta[Out: ClassTag](val operator: ElementaryOperator, outputIndex: I
   (thisKeyUdf: Out => Key,
    that: DataQuanta[ThatOut],
    thatKeyUdf: ThatOut => Key)
-  : DataQuanta[org.qcri.rheem.basic.data.Tuple2[Out, ThatOut]] =
+  : DataQuanta[RheemTuple2[Out, ThatOut]] =
     joinJava(toSerializableFunction(thisKeyUdf), that, toSerializableFunction(thatKeyUdf))
 
   /**
@@ -433,7 +434,7 @@ class DataQuanta[Out: ClassTag](val operator: ElementaryOperator, outputIndex: I
   (thisKeyUdf: SerializableFunction[Out, Key],
    that: DataQuanta[ThatOut],
    thatKeyUdf: SerializableFunction[ThatOut, Key])
-  : DataQuanta[org.qcri.rheem.basic.data.Tuple2[Out, ThatOut]] = {
+  : DataQuanta[RheemTuple2[Out, ThatOut]] = {
     require(this.planBuilder eq that.planBuilder, s"$this and $that must use the same plan builders.")
     val joinOperator = new JoinOperator(
       new TransformationDescriptor(thisKeyUdf, basicDataUnitType[Out], basicDataUnitType[Key]),
@@ -456,7 +457,7 @@ class DataQuanta[Out: ClassTag](val operator: ElementaryOperator, outputIndex: I
   (thisKeyUdf: Out => Key,
    that: DataQuanta[ThatOut],
    thatKeyUdf: ThatOut => Key)
-  : DataQuanta[org.qcri.rheem.basic.data.Tuple2[java.lang.Iterable[Out], java.lang.Iterable[ThatOut]]] =
+  : DataQuanta[RheemTuple2[java.lang.Iterable[Out], java.lang.Iterable[ThatOut]]] =
     coGroupJava(toSerializableFunction(thisKeyUdf), that, toSerializableFunction(thatKeyUdf))
 
   /**
@@ -471,7 +472,7 @@ class DataQuanta[Out: ClassTag](val operator: ElementaryOperator, outputIndex: I
   (thisKeyUdf: SerializableFunction[Out, Key],
    that: DataQuanta[ThatOut],
    thatKeyUdf: SerializableFunction[ThatOut, Key])
-  : DataQuanta[org.qcri.rheem.basic.data.Tuple2[java.lang.Iterable[Out], java.lang.Iterable[ThatOut]]] = {
+  : DataQuanta[RheemTuple2[java.lang.Iterable[Out], java.lang.Iterable[ThatOut]]] = {
     require(this.planBuilder eq that.planBuilder, s"$this and $that must use the same plan builders.")
     val coGroupOperator = new CoGroupOperator(
       new TransformationDescriptor(thisKeyUdf, basicDataUnitType[Out], basicDataUnitType[Key]),
@@ -517,7 +518,7 @@ class DataQuanta[Out: ClassTag](val operator: ElementaryOperator, outputIndex: I
     * @return a new instance representing the [[CartesianOperator]]'s output
     */
   def cartesian[ThatOut: ClassTag](that: DataQuanta[ThatOut])
-  : DataQuanta[org.qcri.rheem.basic.data.Tuple2[Out, ThatOut]] = {
+  : DataQuanta[RheemTuple2[Out, ThatOut]] = {
     require(this.planBuilder eq that.planBuilder, s"$this and $that must use the same plan builders.")
     val cartesianOperator = new CartesianOperator(dataSetType[Out], dataSetType[ThatOut])
     this.connectTo(cartesianOperator, 0)
@@ -530,7 +531,7 @@ class DataQuanta[Out: ClassTag](val operator: ElementaryOperator, outputIndex: I
     *
     * @return a new instance representing the [[ZipWithIdOperator]]'s output
     */
-  def zipWithId: DataQuanta[org.qcri.rheem.basic.data.Tuple2[java.lang.Long, Out]] = {
+  def zipWithId: DataQuanta[RheemTuple2[java.lang.Long, Out]] = {
     val zipWithIdOperator = new ZipWithIdOperator(dataSetType[Out])
     this.connectTo(zipWithIdOperator, 0)
     zipWithIdOperator
@@ -860,7 +861,7 @@ class KeyedDataQuanta[Out: ClassTag, Key: ClassTag](val dataQuanta: DataQuanta[O
     * @return the join product [[DataQuanta]]
     */
   def join[ThatOut: ClassTag](that: KeyedDataQuanta[ThatOut, Key]):
-  DataQuanta[org.qcri.rheem.basic.data.Tuple2[Out, ThatOut]] =
+  DataQuanta[RheemTuple2[Out, ThatOut]] =
     dataQuanta.joinJava[ThatOut, Key](this.keyExtractor, that.dataQuanta, that.keyExtractor)
 
   /**
@@ -870,7 +871,7 @@ class KeyedDataQuanta[Out: ClassTag, Key: ClassTag](val dataQuanta: DataQuanta[O
     * @return the co-grouped [[DataQuanta]]
     */
   def coGroup[ThatOut: ClassTag](that: KeyedDataQuanta[ThatOut, Key]):
-  DataQuanta[org.qcri.rheem.basic.data.Tuple2[java.lang.Iterable[Out], java.lang.Iterable[ThatOut]]] =
+  DataQuanta[RheemTuple2[java.lang.Iterable[Out], java.lang.Iterable[ThatOut]]] =
     dataQuanta.coGroupJava[ThatOut, Key](this.keyExtractor, that.dataQuanta, that.keyExtractor)
 
 }
@@ -879,7 +880,7 @@ class KeyedDataQuanta[Out: ClassTag, Key: ClassTag](val dataQuanta: DataQuanta[O
   * This class amends joined [[DataQuanta]] with additional operations.
   */
 class JoinedDataQuanta[Out0: ClassTag, Out1: ClassTag]
-(val dataQuanta: DataQuanta[org.qcri.rheem.basic.data.Tuple2[Out0, Out1]]) {
+(val dataQuanta: DataQuanta[RheemTuple2[Out0, Out1]]) {
 
   /**
     * Assembles a new element from a join product tuple.

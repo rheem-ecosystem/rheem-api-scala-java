@@ -1,9 +1,9 @@
-package org.qcri.rheem.api.util
+package io.rheem.rheem.api.util
 
-import org.qcri.rheem.core.types.DataSetType
+import io.rheem.rheem.core.types.DataSetType
 
 /**
-  * This class waits for a [[org.qcri.rheem.core.types.DataSetType]] to be set and verifies that there are no
+  * This class waits for a [[io.rheem.rheem.core.types.DataSetType]] to be set and verifies that there are no
   * two different sets.
   */
 class TypeTrap {

@@ -1,6 +1,6 @@
-package org.qcri.rheem.api
+package io.rheem.rheem.api
 
-import org.qcri.rheem.basic.data.{Tuple2 => T2}
+import io.rheem.rheem.basic.data.{Tuple2 => T2}
 
 /**
   * Provides implicits for Rheem's graph API.

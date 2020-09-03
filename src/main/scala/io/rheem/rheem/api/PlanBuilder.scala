@@ -1,13 +1,13 @@
-package org.qcri.rheem.api
+package io.rheem.rheem.api
 
 import de.hpi.isg.profiledb.store.model.Experiment
 import org.apache.commons.lang3.Validate
-import org.qcri.rheem.api
-import org.qcri.rheem.basic.data.Record
-import org.qcri.rheem.basic.operators.{CollectionSource, TableSource, TextFileSource}
-import org.qcri.rheem.core.api.RheemContext
-import org.qcri.rheem.core.plan.rheemplan._
-import org.qcri.rheem.core.util.ReflectionUtils
+import io.rheem.rheem.api
+import io.rheem.rheem.basic.data.Record
+import io.rheem.rheem.basic.operators.{CollectionSource, TableSource, TextFileSource}
+import io.rheem.rheem.core.api.RheemContext
+import io.rheem.rheem.core.plan.rheemplan._
+import io.rheem.rheem.core.util.ReflectionUtils
 
 import scala.collection.JavaConversions
 import scala.collection.mutable.ListBuffer
@@ -77,7 +77,7 @@ class PlanBuilder(rheemContext: RheemContext, private var jobName: String = null
 
 
   /**
-    * Build the [[org.qcri.rheem.core.api.Job]] and execute it.
+    * Build the [[io.rheem.rheem.core.api.Job]] and execute it.
     */
   def buildAndExecute(): Unit = {
     val plan: RheemPlan = new RheemPlan(this.sinks.toArray: _*)

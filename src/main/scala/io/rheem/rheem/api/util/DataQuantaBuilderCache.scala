@@ -1,10 +1,10 @@
-package org.qcri.rheem.api.util
+package io.rheem.rheem.api.util
 
-import org.qcri.rheem.api.DataQuanta
+import io.rheem.rheem.api.DataQuanta
 
 /**
-  * Caches products of [[org.qcri.rheem.api.DataQuantaBuilder]]s that need to be executed at once, e.g., because they
-  * belong to different [[org.qcri.rheem.core.plan.rheemplan.OutputSlot]]s of the same custom [[org.qcri.rheem.core.plan.rheemplan.Operator]].
+  * Caches products of [[io.rheem.rheem.api.DataQuantaBuilder]]s that need to be executed at once, e.g., because they
+  * belong to different [[io.rheem.rheem.core.plan.rheemplan.OutputSlot]]s of the same custom [[io.rheem.rheem.core.plan.rheemplan.Operator]].
   */
 class DataQuantaBuilderCache {
 

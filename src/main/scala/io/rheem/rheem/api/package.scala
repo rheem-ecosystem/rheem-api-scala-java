@@ -1,16 +1,16 @@
-package org.qcri.rheem
+package io.rheem.rheem
 
 import _root_.java.lang.{Class => JavaClass, Iterable => JavaIterable}
 import _root_.java.util.function.{Consumer, ToLongBiFunction, ToLongFunction}
 
-import org.qcri.rheem.basic.data.{Record, Tuple2 => RheemTuple2}
-import org.qcri.rheem.core.api.RheemContext
-import org.qcri.rheem.core.function.FunctionDescriptor.{SerializableBinaryOperator, SerializableFunction, SerializablePredicate}
-import org.qcri.rheem.core.optimizer.ProbabilisticDoubleInterval
-import org.qcri.rheem.core.optimizer.cardinality.{CardinalityEstimate, CardinalityEstimator, DefaultCardinalityEstimator, FixedSizeCardinalityEstimator}
-import org.qcri.rheem.core.optimizer.costs.{DefaultLoadEstimator, LoadEstimator, LoadProfileEstimator, NestableLoadProfileEstimator}
-import org.qcri.rheem.core.plan.rheemplan.ElementaryOperator
-import org.qcri.rheem.core.types.{BasicDataUnitType, DataSetType, DataUnitGroupType, DataUnitType}
+import io.rheem.rheem.basic.data.{Record, Tuple2 => RheemTuple2}
+import io.rheem.rheem.core.api.RheemContext
+import io.rheem.rheem.core.function.FunctionDescriptor.{SerializableBinaryOperator, SerializableFunction, SerializablePredicate}
+import io.rheem.rheem.core.optimizer.ProbabilisticDoubleInterval
+import io.rheem.rheem.core.optimizer.cardinality.{CardinalityEstimate, CardinalityEstimator, DefaultCardinalityEstimator, FixedSizeCardinalityEstimator}
+import io.rheem.rheem.core.optimizer.costs.{DefaultLoadEstimator, LoadEstimator, LoadProfileEstimator, NestableLoadProfileEstimator}
+import io.rheem.rheem.core.plan.rheemplan.ElementaryOperator
+import io.rheem.rheem.core.types.{BasicDataUnitType, DataSetType, DataUnitGroupType, DataUnitType}
 
 import scala.collection.JavaConversions
 import scala.language.implicitConversions

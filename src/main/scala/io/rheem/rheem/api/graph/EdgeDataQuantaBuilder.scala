@@ -1,9 +1,9 @@
-package org.qcri.rheem.api.graph
+package io.rheem.rheem.api.graph
 
-import org.qcri.rheem.api.util.DataQuantaBuilderDecorator
-import org.qcri.rheem.api.{BasicDataQuantaBuilder, DataQuanta, DataQuantaBuilder, JavaPlanBuilder, _}
-import org.qcri.rheem.basic.operators.PageRankOperator
-import org.qcri.rheem.core.optimizer.ProbabilisticDoubleInterval
+import io.rheem.rheem.api.util.DataQuantaBuilderDecorator
+import io.rheem.rheem.api.{BasicDataQuantaBuilder, DataQuanta, DataQuantaBuilder, JavaPlanBuilder, _}
+import io.rheem.rheem.basic.operators.PageRankOperator
+import io.rheem.rheem.core.optimizer.ProbabilisticDoubleInterval
 
 /**
   * Enriches [[DataQuantaBuilder]] by graph-specific operations.
@@ -31,7 +31,7 @@ class EdgeDataQuantaBuilderDecorator[This <: EdgeDataQuantaBuilderDecorator[This
   extends DataQuantaBuilderDecorator[This, Edge](baseBuilder) with EdgeDataQuantaBuilder[This]
 
 /**
-  * [[DataQuantaBuilder]] implementation for [[org.qcri.rheem.basic.operators.MapOperator]]s.
+  * [[DataQuantaBuilder]] implementation for [[io.rheem.rheem.basic.operators.MapOperator]]s.
   *
   * @param inputDataQuanta [[DataQuantaBuilder]] for the input [[DataQuanta]]
   * @param numIterations   number of PageRank iterations to do
