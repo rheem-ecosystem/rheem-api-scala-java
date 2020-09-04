@@ -1,10 +1,10 @@
-package io.rheem.rheem.api.util
+package io.rheem.api.util
 
 import de.hpi.isg.profiledb.store.model.Experiment
-import io.rheem.rheem.api.{DataQuanta, DataQuantaBuilder, JavaPlanBuilder}
-import io.rheem.rheem.core.optimizer.cardinality.CardinalityEstimator
-import io.rheem.rheem.core.platform.Platform
-import io.rheem.rheem.core.types.DataSetType
+import io.rheem.api.{DataQuanta, DataQuantaBuilder, JavaPlanBuilder}
+import io.rheem.core.optimizer.cardinality.CardinalityEstimator
+import io.rheem.core.platform.Platform
+import io.rheem.core.types.DataSetType
 
 /**
   * Utility to extend a [[DataQuantaBuilder]]'s functionality by decoration.

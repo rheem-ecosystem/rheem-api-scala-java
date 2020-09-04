@@ -1,10 +1,10 @@
-package io.rheem.rheem.api
+package io.rheem.api
 
-import io.rheem.rheem.api.util.DataQuantaBuilderDecorator
-import io.rheem.rheem.basic.data.Record
-import io.rheem.rheem.basic.function.ProjectionDescriptor
-import io.rheem.rheem.basic.operators.MapOperator
-import io.rheem.rheem.core.optimizer.costs.LoadEstimator
+import io.rheem.api.util.DataQuantaBuilderDecorator
+import io.rheem.basic.data.Record
+import io.rheem.basic.function.ProjectionDescriptor
+import io.rheem.basic.operators.MapOperator
+import io.rheem.core.optimizer.costs.LoadEstimator
 
 
 /**
@@ -34,11 +34,11 @@ class RecordDataQuantaBuilderDecorator[This <: RecordDataQuantaBuilder[This]]
   extends DataQuantaBuilderDecorator[This, Record](baseBuilder) with RecordDataQuantaBuilder[This]
 
 /**
-  * [[DataQuantaBuilder]] implementation for [[io.rheem.rheem.basic.operators.MapOperator]]s with
-  * [[io.rheem.rheem.basic.function.ProjectionDescriptor]]s.
+  * [[DataQuantaBuilder]] implementation for [[io.rheem.basic.operators.MapOperator]]s with
+  * [[io.rheem.basic.function.ProjectionDescriptor]]s.
   *
   * @param inputDataQuanta [[DataQuantaBuilder]] for the input [[DataQuanta]]
-  * @param fieldNames      field names for the [[io.rheem.rheem.basic.function.ProjectionDescriptor]]
+  * @param fieldNames      field names for the [[io.rheem.basic.function.ProjectionDescriptor]]
   */
 class ProjectRecordsDataQuantaBuilder(inputDataQuanta: DataQuantaBuilder[_, Record], fieldNames: Array[String])
                                      (implicit javaPlanBuilder: JavaPlanBuilder)

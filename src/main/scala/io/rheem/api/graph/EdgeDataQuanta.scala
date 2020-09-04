@@ -1,9 +1,9 @@
-package io.rheem.rheem.api.graph
+package io.rheem.api.graph
 
-import io.rheem.rheem.api._
-import io.rheem.rheem.basic.data.Record
-import io.rheem.rheem.basic.operators.{MapOperator, PageRankOperator}
-import io.rheem.rheem.core.optimizer.ProbabilisticDoubleInterval
+import io.rheem.api._
+import io.rheem.basic.data.Record
+import io.rheem.basic.operators.{MapOperator, PageRankOperator}
+import io.rheem.core.optimizer.ProbabilisticDoubleInterval
 
 /**
   * This class enhances the functionality of [[DataQuanta]] with [[Record]]s.

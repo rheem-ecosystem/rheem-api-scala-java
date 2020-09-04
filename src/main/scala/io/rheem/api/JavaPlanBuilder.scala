@@ -1,15 +1,15 @@
-package io.rheem.rheem.api
+package io.rheem.api
 
 import java.util.{Collection => JavaCollection}
 
 import de.hpi.isg.profiledb.store.model.Experiment
 import org.apache.commons.lang3.Validate
-import io.rheem.rheem.api.util.DataQuantaBuilderCache
-import io.rheem.rheem.basic.data.Record
-import io.rheem.rheem.basic.operators.{TableSource, TextFileSource}
-import io.rheem.rheem.core.api.RheemContext
-import io.rheem.rheem.core.plan.rheemplan._
-import io.rheem.rheem.core.types.DataSetType
+import io.rheem.api.util.DataQuantaBuilderCache
+import io.rheem.basic.data.Record
+import io.rheem.basic.operators.{TableSource, TextFileSource}
+import io.rheem.core.api.RheemContext
+import io.rheem.core.plan.rheemplan._
+import io.rheem.core.types.DataSetType
 
 import scala.reflect.ClassTag
 
@@ -26,7 +26,7 @@ class JavaPlanBuilder(rheemCtx: RheemContext, jobName: String) {
   protected[api] val planBuilder = new PlanBuilder(rheemCtx, jobName = jobName)
 
   /**
-    * Feed a [[JavaCollection]] into a [[io.rheem.rheem.basic.operators.CollectionSource]].
+    * Feed a [[JavaCollection]] into a [[io.rheem.basic.operators.CollectionSource]].
     *
     * @param collection the [[JavaCollection]]
     * @return a [[DataQuantaBuilder]] to further develop and configure the just started [[RheemPlan]]

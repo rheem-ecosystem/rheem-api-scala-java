@@ -1,10 +1,10 @@
-package io.rheem.rheem.api
+package io.rheem.api
 
-import io.rheem.rheem.basic.data.Record
-import io.rheem.rheem.basic.function.ProjectionDescriptor
-import io.rheem.rheem.basic.operators.MapOperator
-import io.rheem.rheem.basic.types.RecordType
-import io.rheem.rheem.core.optimizer.costs.LoadEstimator
+import io.rheem.basic.data.Record
+import io.rheem.basic.function.ProjectionDescriptor
+import io.rheem.basic.operators.MapOperator
+import io.rheem.basic.types.RecordType
+import io.rheem.core.optimizer.costs.LoadEstimator
 
 /**
   * This class enhances the functionality of [[DataQuanta]] with [[Record]]s.

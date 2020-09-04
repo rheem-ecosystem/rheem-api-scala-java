@@ -1,4 +1,4 @@
-package io.rheem.rheem.api
+package io.rheem.api
 
 import _root_.java.lang.{Iterable => JavaIterable}
 import _root_.java.util.function.{Consumer, IntUnaryOperator, BiFunction => JavaBiFunction, Function => JavaFunction}
@@ -6,17 +6,17 @@ import _root_.java.util.{Collection => JavaCollection}
 
 import de.hpi.isg.profiledb.store.model.Experiment
 import org.apache.commons.lang3.Validate
-import io.rheem.rheem.basic.function.ProjectionDescriptor
-import io.rheem.rheem.basic.operators._
-import io.rheem.rheem.core.function.FunctionDescriptor.{SerializableBinaryOperator, SerializableFunction, SerializablePredicate}
-import io.rheem.rheem.core.function._
-import io.rheem.rheem.core.optimizer.ProbabilisticDoubleInterval
-import io.rheem.rheem.core.optimizer.cardinality.CardinalityEstimator
-import io.rheem.rheem.core.optimizer.costs.LoadProfileEstimator
-import io.rheem.rheem.core.plan.rheemplan._
-import io.rheem.rheem.core.platform.Platform
-import io.rheem.rheem.core.util.{Tuple => RheemTuple}
-import io.rheem.rheem.basic.data.{Tuple2 => RheemTuple2}
+import io.rheem.basic.function.ProjectionDescriptor
+import io.rheem.basic.operators._
+import io.rheem.core.function.FunctionDescriptor.{SerializableBinaryOperator, SerializableFunction, SerializablePredicate}
+import io.rheem.core.function._
+import io.rheem.core.optimizer.ProbabilisticDoubleInterval
+import io.rheem.core.optimizer.cardinality.CardinalityEstimator
+import io.rheem.core.optimizer.costs.LoadProfileEstimator
+import io.rheem.core.plan.rheemplan._
+import io.rheem.core.platform.Platform
+import io.rheem.core.util.{Tuple => RheemTuple}
+import io.rheem.basic.data.{Tuple2 => RheemTuple2}
 
 import scala.collection.JavaConversions
 import scala.collection.JavaConversions._

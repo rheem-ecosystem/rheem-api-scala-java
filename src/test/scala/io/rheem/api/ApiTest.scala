@@ -1,4 +1,4 @@
-package io.rheem.rheem.api
+package io.rheem.api
 
 import java.io.File
 import java.net.URI
@@ -7,16 +7,16 @@ import java.sql.{Connection, Statement}
 import java.util.function.Consumer
 
 import org.junit.{Assert, Test}
-import io.rheem.rheem.basic.RheemBasics
-import io.rheem.rheem.core.api.{Configuration, RheemContext}
-import io.rheem.rheem.core.function.FunctionDescriptor.ExtendedSerializablePredicate
-import io.rheem.rheem.core.function.{ExecutionContext, TransformationDescriptor}
-import io.rheem.rheem.core.util.fs.LocalFileSystem
-import io.rheem.rheem.java.Java
-import io.rheem.rheem.java.operators.JavaMapOperator
-import io.rheem.rheem.spark.Spark
-import io.rheem.rheem.sqlite3.Sqlite3
-import io.rheem.rheem.sqlite3.operators.Sqlite3TableSource
+import io.rheem.basic.RheemBasics
+import io.rheem.core.api.{Configuration, RheemContext}
+import io.rheem.core.function.FunctionDescriptor.ExtendedSerializablePredicate
+import io.rheem.core.function.{ExecutionContext, TransformationDescriptor}
+import io.rheem.core.util.fs.LocalFileSystem
+import io.rheem.java.Java
+import io.rheem.java.operators.JavaMapOperator
+import io.rheem.spark.Spark
+import io.rheem.sqlite3.Sqlite3
+import io.rheem.sqlite3.operators.Sqlite3TableSource
 
 /**
   * Tests the Rheem API.
@@ -399,7 +399,7 @@ class ApiTest {
       .withPlugin(Java.graphPlugin)
       .withPlugin(RheemBasics.graphPlugin)
       .withPlugin(Java.basicPlugin)
-    import io.rheem.rheem.api.graph._
+    import io.rheem.api.graph._
 
     val edges = Seq((0, 1), (0, 2), (0, 3), (1, 0), (2, 1), (3, 2), (3, 1)).map(t => Edge(t._1, t._2))
 

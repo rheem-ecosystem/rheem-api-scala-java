@@ -1,6 +1,6 @@
-package io.rheem.rheem.api
+package io.rheem.api
 
-import io.rheem.rheem.basic.data.{Tuple2 => T2}
+import io.rheem.basic.data.{Tuple2 => T2}
 
 /**
   * Provides implicits for Rheem's graph API.
