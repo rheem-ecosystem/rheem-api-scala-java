@@ -2,7 +2,10 @@ package io.rheem.api;
 
 import io.rheem.basic.operators.MapOperator;
 import io.rheem.basic.operators.TableSource;
-import io.rheem.platforms.PlatformPlugins;
+import io.rheem.java.Java;
+import io.rheem.spark.Spark;
+import io.rheem.sqlite3.Sqlite3;
+import io.rheem.sqlite3.operators.Sqlite3TableSource;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,9 +45,6 @@ import java.util.stream.StreamSupport;
 public class JavaApiTest {
 
     private Configuration sqlite3Configuration;
-    private PlatformPlugins Sqlite3 = PlatformPlugins.SQLite;
-    private PlatformPlugins Java = PlatformPlugins.Java;
-    private PlatformPlugins Spark = PlatformPlugins.Spark;
 
     @Before
     public void setUp() throws SQLException, IOException {
@@ -53,7 +53,7 @@ public class JavaApiTest {
         File sqlite3dbFile = File.createTempFile("rheem-sqlite3", "db");
         sqlite3dbFile.deleteOnExit();
         this.sqlite3Configuration.setProperty("rheem.sqlite3.jdbc.url", "jdbc:sqlite:" + sqlite3dbFile.getAbsolutePath());
-        try (Connection connection = new ConnectionDatabase(this.sqlite3Configuration, "sqlite3").createJdbcConnection()) {
+        try (Connection connection = Sqlite3.platform().createDatabaseDescriptor(this.sqlite3Configuration).createJdbcConnection()) {
             Statement statement = connection.createStatement();
             statement.addBatch("DROP TABLE IF EXISTS customer;");
             statement.addBatch("CREATE TABLE customer (name TEXT, age INT);");
@@ -677,10 +677,10 @@ public class JavaApiTest {
         // Execute job.
         final RheemContext rheemCtx = new RheemContext(this.sqlite3Configuration)
                 .with(Java.basicPlugin())
-                .with(Sqlite3.basicPlugin());
+                .with(Sqlite3.plugin());
         JavaPlanBuilder builder = new JavaPlanBuilder(rheemCtx, "testSqlOnJava()");
         final Collection<String> outputValues = builder
-                .readTable(new TableSource("customer", "name", "age"))
+                .readTable(new Sqlite3TableSource("customer", "name", "age"))
                 .filter(r -> (Integer) r.getField(1) >= 18).withSqlUdf("age >= 18").withTargetPlatform(Java.platform())
                 .asRecords().projectRecords(new String[]{"name"})
                 .map(record -> (String) record.getField(0))
@@ -698,10 +698,10 @@ public class JavaApiTest {
         // Execute job.
         final RheemContext rheemCtx = new RheemContext(this.sqlite3Configuration)
                 .with(Java.basicPlugin())
-                .with(Sqlite3.basicPlugin());
+                .with(Sqlite3.plugin());
         JavaPlanBuilder builder = new JavaPlanBuilder(rheemCtx, "testSqlOnSqlite3()");
         final Collection<String> outputValues = builder
-                .readTable(new TableSource("customer", "name", "age"))
+                .readTable(new Sqlite3TableSource("customer", "name", "age"))
                 .filter(r -> (Integer) r.getField(1) >= 18).withSqlUdf("age >= 18")
                 .asRecords().projectRecords(new String[]{"name"}).withTargetPlatform(Sqlite3.platform())
                 .map(record -> (String) record.getField(0))

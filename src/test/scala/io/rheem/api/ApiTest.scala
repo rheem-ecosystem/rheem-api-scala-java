@@ -13,16 +13,15 @@ import io.rheem.core.api.{Configuration, RheemContext}
 import io.rheem.core.function.FunctionDescriptor.ExtendedSerializablePredicate
 import io.rheem.core.function.{ExecutionContext, TransformationDescriptor}
 import io.rheem.core.util.fs.LocalFileSystem
-import io.rheem.platforms.PlatformPlugins
+import io.rheem.java.Java
+import io.rheem.spark.Spark
+import io.rheem.sqlite3.Sqlite3
+import io.rheem.sqlite3.operators.Sqlite3TableSource
 
 /**
   * Tests the Rheem API.
   */
 class ApiTest {
-
-  private val Sqlite3 = PlatformPlugins.SQLite
-  private val Java = PlatformPlugins.Java
-  private val Spark = PlatformPlugins.Spark
 
   @Test
   def testReadMapCollect(): Unit = {
@@ -488,7 +487,7 @@ class ApiTest {
     configuration.setProperty("rheem.sqlite3.jdbc.url", "jdbc:sqlite:" + sqlite3dbFile.getAbsolutePath)
 
     try {
-      val connection: Connection = new ConnectionDatabase(configuration, "sqlite3").createJdbcConnection
+      val connection: Connection = Sqlite3.platform.createDatabaseDescriptor(configuration).createJdbcConnection
       try {
         val statement: Statement = connection.createStatement
         statement.addBatch("DROP TABLE IF EXISTS customer;")
@@ -503,10 +502,10 @@ class ApiTest {
     }
 
     // Set up RheemContext.
-    val rheem = new RheemContext(configuration).withPlugin(Java.basicPlugin).withPlugin(Sqlite3.basicPlugin)
+    val rheem = new RheemContext(configuration).withPlugin(Java.basicPlugin).withPlugin(Sqlite3.plugin())
 
     val result = rheem
-      .readTable(new TableSource("customer", "name", "age"))
+      .readTable(new Sqlite3TableSource("customer", "name", "age"))
       .filter(r => r.getField(1).asInstanceOf[Integer] >= 18, sqlUdf = "age >= 18").withTargetPlatforms(Java.platform)
       .projectRecords(Seq("name"))
       .map(_.getField(0).asInstanceOf[String])
@@ -526,7 +525,7 @@ class ApiTest {
     configuration.setProperty("rheem.sqlite3.jdbc.url", "jdbc:sqlite:" + sqlite3dbFile.getAbsolutePath)
 
     try {
-      val connection: Connection = new ConnectionDatabase(configuration, "sqlite3").createJdbcConnection
+      val connection: Connection = Sqlite3.platform.createDatabaseDescriptor(configuration).createJdbcConnection
       try {
         val statement: Statement = connection.createStatement
         statement.addBatch("DROP TABLE IF EXISTS customer;")
@@ -541,10 +540,10 @@ class ApiTest {
     }
 
     // Set up RheemContext.
-    val rheem = new RheemContext(configuration).withPlugin(Java.basicPlugin).withPlugin(Sqlite3.basicPlugin)
+    val rheem = new RheemContext(configuration).withPlugin(Java.basicPlugin).withPlugin(Sqlite3.plugin())
 
     val result = rheem
-      .readTable(new TableSource("customer", "name", "age"))
+      .readTable(new Sqlite3TableSource("customer", "name", "age"))
       .filter(r => r.getField(1).asInstanceOf[Integer] >= 18, sqlUdf = "age >= 18")
       .projectRecords(Seq("name")).withTargetPlatforms(Sqlite3.platform)
       .map(_.getField(0).asInstanceOf[String])
