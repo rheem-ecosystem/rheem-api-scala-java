@@ -1296,8 +1296,15 @@ class JoinDataQuantaBuilder[In0, In1, Key](inputDataQuanta0: DataQuantaBuilder[_
       override def apply(joinTuple: RT2[In0, In1]): NewOut = udf.apply(joinTuple.field0, joinTuple.field1)
     })
 
-  override protected def build =
-    inputDataQuanta0.dataQuanta().joinJava(keyUdf0, inputDataQuanta1.dataQuanta(), keyUdf1)(inputDataQuanta1.classTag, this.keyTag)
+  override protected def build = {
+     val inputDataQuanta1TypeClass = inputDataQuanta1.dataQuanta().output.getType.getDataUnitType.getTypeClass
+     val isRecord = inputDataQuanta1TypeClass.getName == classOf[Record].getName
+     if (isRecord) {
+       inputDataQuanta0.dataQuanta().joinJava(keyUdf0, inputDataQuanta1.dataQuanta(), keyUdf1)(inputDataQuanta1.recordClassTag, this.keyTag)
+     } else {
+       inputDataQuanta0.dataQuanta().joinJava(keyUdf0, inputDataQuanta1.dataQuanta(), keyUdf1)(inputDataQuanta1.classTag, this.keyTag)
+     }
+   }
 
 }
 
